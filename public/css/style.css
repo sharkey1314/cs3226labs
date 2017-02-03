@@ -1,0 +1,78 @@
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.navbar-inverse {
+    background: transparent;
+}
+
+body {
+    background: url(../img/background-overwatch-top.jpg) no-repeat center center fixed;
+    background-size: cover;
+    color: black;
+}
+
+body, #ranktable thead {
+    color: white;
+}
+
+#ranktable {
+    color: black;
+}
+
+.nation {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.student-avatar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+}
+
+.even.gold, .odd.gold {
+    background-color: gold;
+}
+
+.even.silver, .odd.silver {
+    background-color: silver;
+}
+
+.even.bronze, .odd.bronze {
+    background-color: #cd7f32;
+}
+
+.even.lowest, .odd.lowest {
+    background-color: pink;
+}
+
+.empty {
+    background-color: white;
+    color: black;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+.highlighted {
+    background-color: orange;
+    color: black;
+}
+
+table.dataTable tbody td {
+    vertical-align: bottom;
+}
