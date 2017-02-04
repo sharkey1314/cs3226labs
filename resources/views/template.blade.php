@@ -43,4 +43,5 @@
     <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="/js/index.js"></script>
+    @yield('script')
 </html>

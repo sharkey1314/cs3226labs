@@ -173,13 +173,16 @@
         </p>
         <p>Graphicalized performance:
         </p>
-        <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
             <canvas id="myChart" style="background-color: white" width="200" height="200"></canvas>
         </div>
     </div>
     </div>
 
 </div>
+@stop
+
+@section('script')
 <script>
     var studentName = "<?php echo $student["name"] ?>";
     var data = [
