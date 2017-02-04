@@ -20,8 +20,9 @@ var myChart = new Chart(ctx, {
             scale: {
                 reverse: false,
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    max: 8
                 }
             }
-    }
+    },
 });
