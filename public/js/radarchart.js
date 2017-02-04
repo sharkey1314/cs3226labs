@@ -17,12 +17,12 @@ var myChart = new Chart(ctx, {
         ]
     },
     options: {
-            scale: {
-                reverse: false,
-                ticks: {
-                    beginAtZero: true,
-                    max: 8
-                }
+        scale: {
+            reverse: false,
+            ticks: {
+                beginAtZero: true,
+                max: 8
             }
+        }
     },
 });
