@@ -1,36 +1,37 @@
 @extends('template')
 @section('main')
-<div class="row">
-    <div class="col-xs-12 col-sm-9">
-        <h4><b><?php echo $student["name"] ?></b></h4>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9">
+            <h4><b><?php echo $student["name"] ?></b></h4>
 
-        <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student["nick"] ?></b></a>
-        </p>
+            <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student["nick"] ?></b></a>
+            </p>
 
-        <?php
-        $scores = $student["scores"];
+            <?php
+            $scores = $student["scores"];
 
-        $spe = array_sum($scores["mc"]);
-        $dil = array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]);
-        $sum = $spe + $dil;
+            $spe = array_sum($scores["mc"]);
+            $dil = array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]);
+            $sum = $spe + $dil;
 
-        $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
-        ?>
+            $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
+            ?>
 
-        <p><b>SPE</b>(ed) component: <b><?php echo array_sum($scores["mc"]) . ' + 0 = ' . array_sum($scores["mc"]) ?></b><br>
-            <b>DIL</b>(igence) component: <b><?php echo array_sum($scores["hw"]) . ' + ' . array_sum($scores["pb"]) . ' + ' . array_sum($scores["ks"]) . ' + ' . array_sum($scores["ac"]) . ' = ' . $dil ?></b><br>
-            <b>Sum = SPE + DIL = <?php echo $spe . ' + ' . $dil . ' = ' . $sum ?></b>
-        </p>
+            <p><b>SPE</b>(ed) component: <b><?php echo array_sum($scores["mc"]) . ' + 0 = ' . array_sum($scores["mc"]) ?></b><br>
+                <b>DIL</b>(igence) component: <b><?php echo array_sum($scores["hw"]) . ' + ' . array_sum($scores["pb"]) . ' + ' . array_sum($scores["ks"]) . ' + ' . array_sum($scores["ac"]) . ' = ' . $dil ?></b><br>
+                <b>Sum = SPE + DIL = <?php echo $spe . ' + ' . $dil . ' = ' . $sum ?></b>
+            </p>
+        </div>
+        <div class="hidden-xs hidden-sm col-sm-1">
+            <img class="nation" src="<?php echo $flag_cdn ?>" width="100px">
+        </div>
+        <div class="hidden-xs hidden-sm col-sm-2">
+            <img class="student-avatar" src="/img/icons/<?php echo $id ?>.png" width="100px">
+        </div>
     </div>
-    <div class="hidden-xs hidden-sm col-sm-1">
-        <img class="nation" src="<?php echo $flag_cdn ?>" width="100px">
-    </div>
-    <div class="hidden-xs hidden-sm col-sm-2">
-        <img class="student-avatar" src="/img/icons/<?php echo $id ?>.png" width="100px">
-    </div>
-</div>
 
-<div class="row">
+    <div class="row">
     <div class="col-xs-12">
         <p>Detailed scores:
         </p>
@@ -171,5 +172,6 @@
         <p>Specific (public) comments about this student:
         </p>
     </div>
+</div>
 </div>
 @stop
