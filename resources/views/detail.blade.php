@@ -171,7 +171,26 @@
 
         <p>Specific (public) comments about this student:
         </p>
+        <p>Graphicalized performance:
+        </p>
+        <div class="col-xs-6 col-md-4 col-md-offset-4 col-xs-offset-3">
+            <canvas id="myChart" style="background-color: white" width="200" height="200"></canvas>
+        </div>
     </div>
+    </div>
+
 </div>
-</div>
+<script>
+    var studentName = "<?php echo $student["name"] ?>";
+    var data = [
+            <?php echo array_sum($scores["mc"]) ?>,
+            0,
+            <?php echo array_sum($scores["hw"]) ?>,
+            <?php echo array_sum($scores["pb"]) ?>,
+            <?php echo array_sum($scores["ks"]) ?>,
+            <?php echo array_sum($scores["ac"]) ?>
+        ];
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="/js/radarchart.js"></script>
 @stop
