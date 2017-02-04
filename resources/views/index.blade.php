@@ -23,133 +23,32 @@
                 </thead>
 
                 <tbody>
+                    <?php
+                    for ($i = 0; $i < count($studentDB); $i++) {
+                        $student = $studentDB[$i];
+                    ?>
                     <tr style="height: 31px">
-                        <td>1</td>
-                        <td class="hidden-xs"><img src="img/jp.png" width="20px"> JP</td>
-                        <td class="hidden-xs"><img src="img/hanzo.png" height="15px"> <a href="/student/1">Hanzo Shimada</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/1">Hanzo</a></td>
-                        <td class="hidden-xs hidden-sm">3</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>3</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td class="hidden-xs hidden-sm">4</td>
-                        <td>8.5</td>
-                        <td>11.5</td>
-                    </tr>
+                        <td><?php echo ($i + 1); ?></td>
+                        <td class="hidden-xs"><img src="" width="20px"><?php echo $student["country"]; ?></td>
+                        <td class="hidden-xs"><img src="" height="15px"> <a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["name"]; ?></a></td>
+                        <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["nick"]; ?></a></td>
 
-                    <tr style="height: 31px">
-                        <td>2</td>
-                        <td class="hidden-xs"><img src="img/jp.png" width="20px"> JP</td>
-                        <td class="hidden-xs"><img src="img/genji.png" height="15px"> <a href="/student/2">Genji Shimada</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/2">Genji</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td class="hidden-xs hidden-sm">4</td>
-                        <td>8.5</td>
-                        <td>9.5</td>
+                        <?php
+                        $scores = $student["scores"];
+                        ?>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[0]; ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[1]; ?></td>
+                        <td><?php echo ($scores[0] + $scores[1]); ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[2]; ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[3]; ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[4]; ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $scores[5]; ?></td>
+                        <td><?php echo ($scores[4] + $scores[5]); ?></td>
+                        <td><?php echo array_sum($scores); ?></td>
                     </tr>
-
-                    <tr style="height: 31px">
-                        <td>3</td>
-                        <td class="hidden-xs"><img src="img/germany.png" height="15px" width="20px"> DE</td>
-                        <td class="hidden-xs"><img src="img/bastion.png" height="15px"> <a href="/student/3">Just Bastion</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/3">Bastion</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td class="hidden-xs hidden-sm">4</td>
-                        <td>8</td>
-                        <td>9</td>
-                    </tr>
-
-                    <tr style="height: 31px">
-                        <td>4</td>
-                        <td class="hidden-xs"><img src="img/us.png" width="20px"> US</td>
-                        <td class="hidden-xs"><img src="img/reaper.png" height="15px"> <a href="/student/4">Reaper The Great</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/4">Reaper</a></td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>0</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td class="hidden-xs hidden-sm">3</td>
-                        <td>7.5</td>
-                        <td>7.5</td>
-                    </tr>
-
-                    <tr style="height: 31px">
-                        <td>5</td>
-                        <td class="hidden-xs"><img src="img/au.png" width="20px"> AU</td>
-                        <td class="hidden-xs"><img src="img/junkrat.png" height="15px"> <a href="/student/5">Totally Sane Junkrat</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/5">Junkrat</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td class="hidden-xs hidden-sm">3</td>
-                        <td>6.5</td>
-                        <td>7.5</td>
-                    </tr>
-
-                    <tr style="height: 31px">
-                        <td>6</td>
-                        <td class="hidden-xs"><img src="img/us.png" width="20px"> US</td>
-                        <td class="hidden-xs"><img src="img/soldier76.png" height="15px"> <a href="/student/6">Soldier 76 (years old)</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/6">76</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">3</td>
-                        <td>5.5</td>
-                        <td>6.5</td>
-                    </tr>
-
-                    <tr style="height: 31px">
-                        <td>7</td>
-                        <td class="hidden-xs"><img src="img/uk.png" width="20px"> GB</td>
-                        <td class="hidden-xs"><img src="img/tracer.png" height="15px"> <a href="/student/7">Tracer</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/7">Tracer</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">3</td>
-                        <td>5</td>
-                        <td>6</td>
-                    </tr>
-
-                    <tr style="height: 31px">
-                        <td>8</td>
-                        <td class="hidden-xs"><img src="img/fr.png" width="20px"> FR</td>
-                        <td class="hidden-xs"><img src="img/widowmaker.png" height="15px"> <a href="/student/8">Grumpy Widowmaker</a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href="/student/8">Widow Maker</a></td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td>1</td>
-                        <td class="hidden-xs hidden-sm">1.5</td>
-                        <td class="hidden-xs hidden-sm">0</td>
-                        <td class="hidden-xs hidden-sm">1</td>
-                        <td class="hidden-xs hidden-sm">2</td>
-                        <td>4.5</td>
-                        <td>5.5</td>
-                    </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
