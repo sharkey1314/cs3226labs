@@ -28,31 +28,25 @@
                         $student = $studentDB[$i];
                         $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
                     ?>
-                    <tr style="height: 31px">
-                        <td><?php echo ($i + 1); ?></td>
-                        <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student["country_iso3"]; ?></td>
-                        <td class="hidden-xs"><img src="/img/icons/<?php echo $i . ".png" ?>" height="15px"> <a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["name"]; ?></a></td>
-                        <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["nick"]; ?></a></td>
+                        <tr style="height: 31px">
+                            <td><?php echo ($i + 1); ?></td>
+                            <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student["country_iso3"]; ?></td>
+                            <td class="hidden-xs"><img class="thumb" src="/img/icons/<?php echo ($i + 1) . ".png" ?>" height="15px"> <a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["name"]; ?></a></td>
+                            <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["nick"]; ?></a></td>
 
                         <?php
                         $scores = $student["scores"];
-                        for ($j = 0; $j < count($scores); $j++) {
                         ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores[$j]; ?></td>
-                            <?php
-                            if ($j == 1) {
-                            ?>
-                                <td><?php echo ($scores[0] + $scores[1]); ?></td>
-                            <?php
-                            } elseif ($j == 5) {
-                            ?>
-                                <td><?php echo ($scores[2] + $scores[3] + $scores[4] + $scores[5]); ?></td>
-                                <td><?php echo array_sum($scores); ?></td>
-                            <?php
-                            }
-                        }
-                        ?>
-                    </tr>
+                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["mc"]) ?></td>
+                            <td class="hidden-xs hidden-sm">0</td>
+                            <td><?php echo array_sum($scores["mc"]) ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["hw"]) ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["pb"]) ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["ks"]) ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["ac"]) ?></td>
+                            <td><?php echo array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]) ?></td>
+                            <td><?php echo array_sum($scores["mc"]) + array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]) ?></td>
+                        </tr>
                     <?php
                     }
                     ?>

@@ -17,8 +17,8 @@ class StudentController extends Controller {
     }
 
     public function detail($id) {
-        $data = $studentDB[$id - 1];
-        return view('detail', $data);
+        $student = $this->studentDB[$id - 1];
+        return view('detail')->with('student', $student)->with('id', $id);
     }
 }
 ?>
