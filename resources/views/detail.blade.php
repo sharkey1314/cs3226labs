@@ -59,7 +59,7 @@
                     <td>Mini Contests</td>
                     <td><?php echo array_sum($scores["mc"]) ?></td>
                     <?php
-                    for ($i = 0;$i< 10; $i++) {
+                    for ($i = 0; $i < 9; $i++) {
                         if ($i < count($scores["mc"])) {
                     ?>
                             <td class="hidden-xs hidden-sm"><?php echo $scores["mc"][$i] ?></td>
@@ -84,7 +84,7 @@
                     <td>Homework</td>
                     <td><?php echo array_sum($scores["hw"]) ?></td>
                     <?php
-                    for ($i = 0;$i< 11; $i++) {
+                    for ($i = 0; $i < 10; $i++) {
                         if ($i < count($scores["hw"])) {
                     ?>
                             <td class="hidden-xs hidden-sm"><?php echo $scores["hw"][$i] ?></td>
@@ -103,7 +103,7 @@
                     <td>Problem Bs</td>
                     <td><?php echo array_sum($scores["pb"]) ?></td>
                     <?php
-                    for ($i = 0;$i< 10; $i++) {
+                    for ($i = 0; $i < 9; $i++) {
                         if ($i < count($scores["pb"])) {
                     ?>
                             <td class="hidden-xs hidden-sm"><?php echo $scores["pb"][$i] ?></td>
@@ -122,7 +122,7 @@
                     <td>Kattis Sets</td>
                     <td><?php echo array_sum($scores["ks"]) ?></td>
                     <?php
-                    for ($i = 0;$i< 13; $i++) {
+                    for ($i = 0; $i < 12; $i++) {
                         if ($i < count($scores["ks"])) {
                     ?>
                             <td class="hidden-xs hidden-sm"><?php echo $scores["ks"][$i] ?></td>
@@ -141,7 +141,7 @@
                     <td>Achievements</td>
                     <td><?php echo array_sum($scores["ac"]) ?></td>
                     <?php
-                    for ($i = 0;$i< 9; $i++) {
+                    for ($i = 0; $i< 9; $i++) {
                         if ($i < count($scores["ac"])) {
                     ?>
                             <td class="hidden-xs hidden-sm"><?php echo $scores["ac"][$i] ?></td>
