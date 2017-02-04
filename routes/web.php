@@ -18,7 +18,7 @@ Route::get('student/{id}', 'StudentController@detail');
 
 Route::get('help', function() { return view('help'); });
 
-Route::get('/customers', function() {
+Route::get('/init', function() {
     $faker = Faker\Factory::create();
 
     $limit = 50;
@@ -30,7 +30,9 @@ Route::get('/customers', function() {
         $lastName = $faker->lastName;
         $arrays[$i]["nick"] = $firstName;
         $arrays[$i]["name"] = $firstName . ' ' . $lastName;
-        $arrays[$i]["country"] = $faker->countryCode;
+        $iso3_codes = json_decode(file_get_contents('../iso3.json'), true);
+        $arrays[$i]["country_iso2"] = $faker->countryCode;
+        $arrays[$i]["country_iso3"] = $iso3_codes[$arrays[$i]["country_iso2"]];
         $arrays[$i]["scores"] = array();
         for ($j = 1; $j < 7; $j++) {
             $arrays[$i]["scores"][] = number_format($faker->numberBetween($min = 0, $max = 8) * 0.5, 1);

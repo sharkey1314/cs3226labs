@@ -59,6 +59,16 @@ a:hover {
     background-color: pink;
 }
 
+.row-pink {
+    background-color: #DDA0DD;
+    color: black;
+}
+
+.row-green {
+    background-color: #90EE90;
+    color: black;
+}
+
 .empty {
     background-color: white;
     color: black;
@@ -69,7 +79,7 @@ td.highlight {
 }
 
 .highlighted {
-    background-color: orange;
+    background-color: #F8DDAC;
     color: black;
 }
 
