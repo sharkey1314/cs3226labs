@@ -21,7 +21,7 @@ var myChart = new Chart(ctx, {
             reverse: false,
             ticks: {
                 beginAtZero: true,
-                max: 8
+                max: 14
             }
         }
     },

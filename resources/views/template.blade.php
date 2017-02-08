@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="container-fluid">
-            <nav class="navbar navbar-inverse">
+            <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-">
                         <a class="navbar-brand" href="/">
