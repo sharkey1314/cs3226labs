@@ -35,38 +35,36 @@ Route::get('/init', function() {
         $arrays[$i]["country_iso3"] = $iso3_codes[$arrays[$i]["country_iso2"]];
 
         $arrays[$i]["scores"] = array();
-        $arrays[$i]["scores"]["all"] = array();
 
         $arrays[$i]["scores"]["mc"] = array();
         for ($j = 0; $j < 3; $j++) {
             $arrays[$i]["scores"]["mc"][] = number_format($faker->numberBetween($min = 0, $max = 8) * 0.5, 1);
         }
-        $arrays[$i]["scores"]["all"][] = array_sum($arrays[$i]["scores"]["mc"]);
-        $arrays[$i]["scores"]["all"][] = 0;
+
+        $arrays[$i]["scores"]["tc"] = array();
+        for ($j = 0; $j < 2; $j++) {
+            $arrays[$i]["scores"]["tc"][] = number_format($faker->numberBetween($min = 0, $max = 8) * 0.5, 1);
+        }
 
         $arrays[$i]["scores"]["hw"] = array();
         for ($j = 0; $j < 2; $j++) {
             $arrays[$i]["scores"]["hw"][] = number_format($faker->numberBetween($min = 0, $max = 4) * 0.5, 1);
         }
-        $arrays[$i]["scores"]["all"][] = array_sum($arrays[$i]["scores"]["hw"]);
 
         $arrays[$i]["scores"]["pb"] = array();
         for ($j = 0; $j < 3; $j++) {
             $arrays[$i]["scores"]["pb"][] = $faker->numberBetween($min = 0, $max = 1);
         }
-        $arrays[$i]["scores"]["all"][] = array_sum($arrays[$i]["scores"]["pb"]);
 
         $arrays[$i]["scores"]["ks"] = array();
         for ($j = 0; $j < 4; $j++) {
             $arrays[$i]["scores"]["ks"][] = $faker->numberBetween($min = 0, $max = 1);
         }
-        $arrays[$i]["scores"]["all"][] = array_sum($arrays[$i]["scores"]["ks"]);
 
         $arrays[$i]["scores"]["ac"] = array();
         for ($j = 0; $j < 3; $j++) {
             $arrays[$i]["scores"]["ac"][] = $faker->numberBetween($min = 0, $max = 3);
         }
-        $arrays[$i]["scores"]["all"][] = array_sum($arrays[$i]["scores"]["ac"]);
     }
     $string = serialize($arrays);
     $fn = "../students.txt";

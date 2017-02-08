@@ -24,28 +24,187 @@
 
                 <tbody>
                     <?php
+                    $max = array();
+                    $max["mc"] = 0;
+                    $max["tc"] = 0;
+                    $max["spe"] = 0;
+                    $max["hw"] = 0;
+                    $max["pb"] = 0;
+                    $max["ks"] = 0;
+                    $max["ac"] = 0;
+                    $max["dil"] = 0;
+                    $max["sum"] = array();
+
+                    for ($i = 0; $i < count($studentDB); $i++) {
+                        $scores = $studentDB[$i]["scores"];
+                        $mc = array_sum($scores["mc"]);
+                        $tc = array_sum($scores["tc"]);
+                        $spe = $mc + $tc;
+                        $hw = array_sum($scores["hw"]);
+                        $pb = array_sum($scores["pb"]);
+                        $ks = array_sum($scores["ks"]);
+                        $ac = array_sum($scores["ac"]);
+                        $dil = $hw + $pb + $ks + $ac;
+                        $sum = $spe + $dil;
+
+                        $max["mc"] = max($max["mc"], $mc);
+                        $max["tc"] = max($max["tc"], $tc);
+                        $max["spe"] = max($max["spe"], $spe);
+                        $max["hw"] = max($max["hw"], $hw);
+                        $max["pb"] = max($max["pb"], $pb);
+                        $max["ks"] = max($max["ks"], $ks);
+                        $max["ac"] = max($max["ac"], $ac);
+                        $max["dil"] = max($max["dil"], $dil);
+                        $max["sum"][] = $sum;
+                    }
+
+                    $max["sum"] = array_unique($max["sum"]);
+                    rsort($max["sum"]);
+
                     for ($i = 0; $i < count($studentDB); $i++) {
                         $student = $studentDB[$i];
                         $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
+
+                        $scores = $student["scores"];
+                        $mc = array_sum($scores["mc"]);
+                        $tc = array_sum($scores["tc"]);
+                        $spe = $mc + $tc;
+                        $hw = array_sum($scores["hw"]);
+                        $pb = array_sum($scores["pb"]);
+                        $ks = array_sum($scores["ks"]);
+                        $ac = array_sum($scores["ac"]);
+                        $dil = $hw + $pb + $ks + $ac;
+                        $sum = $spe + $dil;
+                    ?>
+                    <?php
+                    switch ($sum) {
+                        case $max["sum"][0]:
+                    ?>
+                        <tr style="height: 31px" class="gold">
+                    <?php
+                            break;
+                        case $max["sum"][1]:
+                    ?>
+                        <tr style="height: 31px" class="silver">
+                    <?php
+                            break;
+                        case $max["sum"][2]:
+                    ?>
+                        <tr style="height: 31px" class="bronze">
+                    <?php
+                            break;
+                        case $max["sum"][count($max["sum"]) - 1]:
+                    ?>
+                        <tr style="height: 31px" class="lowest">
+                    <?php
+                            break;
+                        default:
                     ?>
                         <tr style="height: 31px">
+                    <?php
+                    }
+                    ?>
                             <td><?php echo ($i + 1); ?></td>
                             <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student["country_iso3"]; ?></td>
                             <td class="hidden-xs"><img class="thumb" src="/img/icons/<?php echo ($i + 1) . ".png" ?>" height="15px"> <a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["name"]; ?></a></td>
                             <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["nick"]; ?></a></td>
 
                         <?php
-                        $scores = $student["scores"];
+                        if ($mc == $max["mc"]) {
                         ?>
-                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["mc"]) ?></td>
-                            <td class="hidden-xs hidden-sm">0</td>
-                            <td><?php echo array_sum($scores["mc"]) ?></td>
-                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["hw"]) ?></td>
-                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["pb"]) ?></td>
-                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["ks"]) ?></td>
-                            <td class="hidden-xs hidden-sm"><?php echo array_sum($scores["ac"]) ?></td>
-                            <td><?php echo array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]) ?></td>
-                            <td><?php echo array_sum($scores["mc"]) + array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]) ?></td>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $mc ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $mc ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($tc == $max["tc"]) {
+                        ?>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $tc ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $tc ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($spe == $max["spe"]) {
+                        ?>
+                            <td class="highlighted"><?php echo $spe ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td><?php echo $spe ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($hw == $max["hw"]) {
+                        ?>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $hw ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $hw ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($pb == $max["pb"]) {
+                        ?>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $pb ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $pb ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($ks == $max["ks"]) {
+                        ?>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $ks ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $ks ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($ac == $max["ac"]) {
+                        ?>
+                            <td class="hidden-xs hidden-sm highlighted"><?php echo $ac ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $ac ?></td>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
+                        if ($dil == $max["dil"]) {
+                        ?>
+                            <td class="highlighted"><?php echo $dil ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td><?php echo $dil ?></td>
+                        <?php
+                        }
+                        ?>
+                            <td><?php echo $sum ?></td>
                         </tr>
                     <?php
                     }

@@ -77,9 +77,22 @@
                 </tr>
                 <tr>
                     <td>Team Contests</td>
-                    <td>0</td>
-                    <td class="hidden-xs hidden-sm empty">xy.z</td>
-                    <td class="hidden-xs hidden-sm empty">xy.z</td>
+                    <td><?php echo array_sum($scores["tc"]) ?></td>
+                    <?php
+                    for ($i = 0; $i < 2; $i++) {
+                        if ($i < count($scores["tc"])) {
+                    ?>
+                            <td class="hidden-xs hidden-sm"><?php echo $scores["tc"][$i] ?></td>
+                        <?php
+                        } else {
+                        ?>
+                            <td class="hidden-xs hidden-sm empty">xy.z</td>
+                        <?php
+                        }
+                        ?>
+                    <?php
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <td>Homework</td>
@@ -187,7 +200,7 @@
     var studentName = "<?php echo $student["name"] ?>";
     var data = [
             <?php echo array_sum($scores["mc"]) ?>,
-            0,
+            <?php echo array_sum($scores["tc"]) ?>,
             <?php echo array_sum($scores["hw"]) ?>,
             <?php echo array_sum($scores["pb"]) ?>,
             <?php echo array_sum($scores["ks"]) ?>,
