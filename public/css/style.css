@@ -102,3 +102,7 @@ td.highlight {
 table.dataTable tbody td {
     vertical-align: bottom;
 }
+
+.error {
+    color: red;
+}

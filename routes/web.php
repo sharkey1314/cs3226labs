@@ -18,7 +18,11 @@ Route::get('student/{id}', 'StudentController@detail');
 
 Route::get('help', function() { return view('help'); });
 
-Route::get('/init', function() {
+Route::get('create', 'StudentController@create');
+
+Route::post('create', 'StudentController@check');
+
+/*Route::get('/init', function() {
     $faker = Faker\Factory::create();
 
     $limit = 50;
@@ -71,5 +75,5 @@ Route::get('/init', function() {
     $fh = fopen($fn, 'w');
     fwrite($fh, $string);
     fclose($fh);
-});
+});*/
 ?>
