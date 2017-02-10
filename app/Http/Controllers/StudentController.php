@@ -64,5 +64,19 @@ class StudentController extends Controller {
     private function store($nick, $name, $kattis, $country) {
         return '<p>' . $nick . ' ' . $name . ' ' . $kattis . ' ' . $country . '</p>';
     }
+
+    /*public function changeImage() {
+
+        for ($i = 0; $i < count($this->studentDB); $i++) {
+            $this->studentDB[$i]["nick"] = strtolower($this->studentDB[$i]["nick"]);
+            $this->studentDB[$i]["image"] = "/img/icons/" . ($this->studentDB[$i]["nick"]) . ".png";
+        }
+
+        $string = serialize($this->studentDB);
+        $fn = "../students.txt";
+        $fh = fopen($fn, 'w');
+        fwrite($fh, $string);
+        fclose($fh);
+    }*/
 }
 ?>

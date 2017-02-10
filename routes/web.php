@@ -22,6 +22,8 @@ Route::get('create', 'StudentController@create');
 
 Route::post('create', 'StudentController@check');
 
+//Route::get('changeimage', 'StudentController@changeImage');
+
 /*Route::get('/init', function() {
     $faker = Faker\Factory::create();
 

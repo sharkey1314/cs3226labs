@@ -27,7 +27,7 @@
             <img class="nation" src="<?php echo $flag_cdn ?>" width="100px">
         </div>
         <div class="hidden-xs hidden-sm col-sm-2">
-            <img class="student-avatar" src="/img/icons/<?php echo $id ?>.png" width="100px">
+            <img class="student-avatar" src="<?php echo $student["image"] ?>" width="100px">
         </div>
     </div>
 
