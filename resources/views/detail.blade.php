@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-sm-9">
             <h4><b><?php echo $student["name"] ?></b></h4>
 
-            <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student["nick"] ?></b></a>
+            <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student["kattis"] ?></b></a>
             </p>
 
             <?php

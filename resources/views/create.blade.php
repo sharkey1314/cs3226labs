@@ -1,10 +1,15 @@
 @extends('template')
+
+@section('link')
+<link media="all" rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.6/css/fileinput.min.css">
+@stop
+
 @section('main')
 <div class="container-fluid">
     <p>
         <b>Create New Student in CS3233 S2 AY 2016/17</b>
     </p>
-    {!! Form::open() !!}
+    {!! Form::open(['files' => true]) !!}
     <div class="form-group">
         {!! Form::label('nick', 'Nick name:', ['class' => 'control-label']) !!}
         @if ($errors->first('nick'))
@@ -47,10 +52,19 @@
             ['placeholder' => 'Select Nationality'],
             ['class' => 'form-control dropdown']) !!}
     </div>
+    <div class="form-group">
+        <label class="control-label">Upload a profile picture</label>
+        <input name='image' id="input-1" type="file" class="file">
+    </div>
     <div class="form-group col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-success">Submit</button>
     </div>
     {!! Form::close() !!}
 </div>
 </div>
+@stop
+
+@section('script')
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.6.0/js/canvas-to-blob.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.6/js/fileinput.min.js"></script>
 @stop

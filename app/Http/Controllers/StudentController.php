@@ -57,26 +57,56 @@ class StudentController extends Controller {
             $name = $request->input('name');
             $kattis = $request->input('kattis');
             $country = $request->input('country');
-            return $this->store($nick, $name, $kattis, $country);
+            $image = '/img/icons/default.png';
+
+            $file = $request->file('image');
+            if ($file) {
+                $destinationPath = 'img/icons/';
+                $filename = $nick . ".png";
+                $file->move($destinationPath, $filename);
+                $image = '/' . $destinationPath . $filename;
+            }
+            return $this->store($nick, $name, $kattis, $country, $image);
         }
     }
 
-    private function store($nick, $name, $kattis, $country) {
-        return '<p>' . $nick . ' ' . $name . ' ' . $kattis . ' ' . $country . '</p>';
+    private function store($nick, $name, $kattis, $country, $image) {
+
+        $student = array();
+        $student["nick"] = $nick;
+        $student["name"] = $name;
+        $student["kattis"] = $kattis;
+        $student["country_iso2"] = $country;
+        $iso3_codes = json_decode(file_get_contents('../iso3.json'), true);
+        $student["country_iso3"] = $iso3_codes[$country];
+        $student["image"] = $image;
+
+        $student["scores"] = array();
+        $student["scores"]["mc"] = array();
+        $student["scores"]["tc"] = array();
+        $student["scores"]["hw"] = array();
+        $student["scores"]["pb"] = array();
+        $student["scores"]["ks"] = array();
+        $student["scores"]["ac"] = array();
+
+        $this->studentDB[] = $student;
+        $this->updateDB();
+
+        return view('/student/' . (count($this->studentDB)));
     }
 
-    /*public function changeImage() {
-
-        for ($i = 0; $i < count($this->studentDB); $i++) {
-            $this->studentDB[$i]["nick"] = strtolower($this->studentDB[$i]["nick"]);
-            $this->studentDB[$i]["image"] = "/img/icons/" . ($this->studentDB[$i]["nick"]) . ".png";
-        }
-
+    private function updateDB() {
         $string = serialize($this->studentDB);
         $fn = "../students.txt";
         $fh = fopen($fn, 'w');
         fwrite($fh, $string);
         fclose($fh);
+    }
+
+    /*public function removetests() {
+        unset($this->studentDB[count($this->studentDB) - 1]);
+        array_values($this->studentDB);
+        $this->updateDB();
     }*/
 }
 ?>
