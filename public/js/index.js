@@ -17,6 +17,14 @@ $(document).ready(function() {
         jQueryUI: false
     });
 
+    $('tbody tr').each(function(index) {
+        cur = $(this).find('td:nth-child(13)').text();
+        next = $(this).next('tr').find('td:nth-child(13)').text();
+        if (next.length > 0) { // if next row exists, change next row's height depending on sum difference
+            $(this).next().height($(this).next().height() + (cur - next) * 30);
+        }
+    });
+
     $('#ranktable tbody').on('mouseleave', 'td', function() {
         $(table.cells().nodes()).removeClass('highlight');
     });

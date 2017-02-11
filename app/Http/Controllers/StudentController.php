@@ -11,12 +11,6 @@ use App\Student;
 
 class StudentController extends Controller {
 
-    private $studentDB;
-
-    public function __construct() {
-        $this->studentDB = unserialize(file_get_contents('../students.txt'));
-    }
-
     public function index() {
         $studentDB = array();
 
@@ -122,7 +116,7 @@ class StudentController extends Controller {
         DB::table("kss")->insert(["student_id" => $id]);
         DB::table("acs")->insert(["student_id" => $id]);
 
-        return Redirect::to('student/' . count($this->studentDB));
+        return Redirect::to('student/' . $id);
     }
 
     private function updateDB() {
