@@ -13,23 +13,26 @@ class StudentController extends Controller {
 
     public function index() {
         $studentDB = array();
+        $i = 0;
+        foreach (Student::all() as $student) {
+            $id = $student->id;
+            $studentDB[$i]["id"] = $student->id;
+            $studentDB[$i]["nick"] = $student->nick;
+            $studentDB[$i]["name"] = $student->name;
+            $studentDB[$i]["kattis"] = $student->kattis;
+            $studentDB[$i]["image"] = $student->image;
+            $studentDB[$i]["country_iso2"] = $student->country_iso2;
+            $studentDB[$i]["country_iso3"] = $student->country_iso3;
+            $studentDB[$i]["scores"] = array();
 
-        for ($id = 0; $id < count(Student::all()); $id++) {
-            $student = Student::where('id', $id + 1)->first();
-            $studentDB[$id]["nick"] = $student->nick;
-            $studentDB[$id]["name"] = $student->name;
-            $studentDB[$id]["kattis"] = $student->kattis;
-            $studentDB[$id]["image"] = $student->image;
-            $studentDB[$id]["country_iso2"] = $student->country_iso2;
-            $studentDB[$id]["country_iso3"] = $student->country_iso3;
-            $studentDB[$id]["scores"] = array();
+            $studentDB[$i]["scores"]["mc"] = array_sum(array_slice((array) DB::table('mcs')->where('student_id', $id)->first(), 2, 9));
+            $studentDB[$i]["scores"]["tc"] = array_sum(array_slice((array) DB::table('tcs')->where('student_id', $id)->first(), 2, 2));
+            $studentDB[$i]["scores"]["hw"] = array_sum(array_slice((array) DB::table('hws')->where('student_id', $id)->first(), 2, 10));
+            $studentDB[$i]["scores"]["pb"] = array_sum(array_slice((array) DB::table('pbs')->where('student_id', $id)->first(), 2, 9));
+            $studentDB[$i]["scores"]["ks"] = array_sum(array_slice((array) DB::table('kss')->where('student_id', $id)->first(), 2, 12));
+            $studentDB[$i]["scores"]["ac"] = array_sum(array_slice((array) DB::table('acs')->where('student_id', $id)->first(), 2, 9));
 
-            $studentDB[$id]["scores"]["mc"] = array_sum(array_slice((array) DB::table('mcs')->where('student_id', $id + 1)->first(), 2, 9));
-            $studentDB[$id]["scores"]["tc"] = array_sum(array_slice((array) DB::table('tcs')->where('student_id', $id + 1)->first(), 2, 2));
-            $studentDB[$id]["scores"]["hw"] = array_sum(array_slice((array) DB::table('hws')->where('student_id', $id + 1)->first(), 2, 10));
-            $studentDB[$id]["scores"]["pb"] = array_sum(array_slice((array) DB::table('pbs')->where('student_id', $id + 1)->first(), 2, 9));
-            $studentDB[$id]["scores"]["ks"] = array_sum(array_slice((array) DB::table('kss')->where('student_id', $id + 1)->first(), 2, 12));
-            $studentDB[$id]["scores"]["ac"] = array_sum(array_slice((array) DB::table('acs')->where('student_id', $id + 1)->first(), 2, 9));
+            $i++;
         }
 
         return view('index')->with('studentDB', $studentDB);
@@ -127,8 +130,11 @@ class StudentController extends Controller {
         fclose($fh);
     }
 
-    private function checkNull($var) {
-        return isset($var);
+    public function destroy($id) {
+        $student = Student::findOrFail($id);
+        $student->delete();
+
+        return Redirect::to('/');
     }
 
     /*public function removetests() {

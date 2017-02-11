@@ -16,6 +16,8 @@ Route::get('/', 'StudentController@index');
 
 Route::get('student/{id}', 'StudentController@detail');
 
+Route::delete('student/{id}', 'StudentController@destroy');
+
 Route::get('help', function() { return view('help'); });
 
 Route::get('create', 'StudentController@create');

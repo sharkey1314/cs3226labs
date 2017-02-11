@@ -106,8 +106,8 @@
                     ?>
                             <td><?php echo ($i + 1); ?></td>
                             <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student["country_iso3"]; ?></td>
-                            <td class="hidden-xs"><img class="thumb" src="<?php echo $student["image"] ?>" height="15px" width="15px"> <a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["name"]; ?></a></td>
-                            <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . ($i + 1) . '">' . $student["nick"]; ?></a></td>
+                            <td class="hidden-xs"><img class="thumb" src="<?php echo $student["image"] ?>" height="15px" width="15px"> <a href=<?php echo '"/student/' . $student["id"] . '">' . $student["name"]; ?></a></td>
+                            <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . $student["id"] . '">' . $student["nick"]; ?></a></td>
 
                         <?php
                         if ($mc == $max["mc"]) {

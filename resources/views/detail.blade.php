@@ -193,7 +193,14 @@
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <canvas id="myChart" style="background-color: white" width="200" height="200"></canvas>
         </div>
+        <div class="col-xs-12" style="height:50px;"></div>
+        {!! Form::open(['method' => 'DELETE']) !!}
+        <div class="form-group col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            {!! Form::hidden('id', $student->id) !!}
+            {!! Form::submit('Delete', ['class' => 'form-control btn-danger']) !!}
+        </div>
     </div>
+
     </div>
 
 </div>
