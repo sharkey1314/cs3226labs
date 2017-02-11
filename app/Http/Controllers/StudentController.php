@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
+use App\Student;
 
 
 class StudentController extends Controller {
@@ -15,12 +18,39 @@ class StudentController extends Controller {
     }
 
     public function index() {
-        return view('index')->with('studentDB', $this->studentDB);
+        $studentDB = array();
+
+        for ($id = 0; $id < count(Student::all()); $id++) {
+            $student = Student::where('id', $id + 1)->first();
+            $studentDB[$id]["nick"] = $student->nick;
+            $studentDB[$id]["name"] = $student->name;
+            $studentDB[$id]["kattis"] = $student->kattis;
+            $studentDB[$id]["image"] = $student->image;
+            $studentDB[$id]["country_iso2"] = $student->country_iso2;
+            $studentDB[$id]["country_iso3"] = $student->country_iso3;
+            $studentDB[$id]["scores"] = array();
+
+            $studentDB[$id]["scores"]["mc"] = array_sum(array_slice((array) DB::table('mcs')->where('student_id', $id + 1)->first(), 2, 9));
+            $studentDB[$id]["scores"]["tc"] = array_sum(array_slice((array) DB::table('tcs')->where('student_id', $id + 1)->first(), 2, 2));
+            $studentDB[$id]["scores"]["hw"] = array_sum(array_slice((array) DB::table('hws')->where('student_id', $id + 1)->first(), 2, 10));
+            $studentDB[$id]["scores"]["pb"] = array_sum(array_slice((array) DB::table('pbs')->where('student_id', $id + 1)->first(), 2, 9));
+            $studentDB[$id]["scores"]["ks"] = array_sum(array_slice((array) DB::table('kss')->where('student_id', $id + 1)->first(), 2, 12));
+            $studentDB[$id]["scores"]["ac"] = array_sum(array_slice((array) DB::table('acs')->where('student_id', $id + 1)->first(), 2, 9));
+        }
+
+        return view('index')->with('studentDB', $studentDB);
     }
 
     public function detail($id) {
-        $student = $this->studentDB[$id - 1];
-        return view('detail')->with('student', $student)->with('id', $id);
+        $student = Student::where('id', $id)->first();
+        $scores = array();
+        $scores["mc"] = array_filter(array_slice((array) DB::table('mcs')->where('student_id', $id)->first(), 2, 9));
+        $scores["tc"] = array_filter(array_slice((array) DB::table('tcs')->where('student_id', $id)->first(), 2, 2));
+        $scores["hw"] = array_filter(array_slice((array) DB::table('hws')->where('student_id', $id)->first(), 2, 10));
+        $scores["pb"] = array_filter(array_slice((array) DB::table('pbs')->where('student_id', $id)->first(), 2, 9));
+        $scores["ks"] = array_filter(array_slice((array) DB::table('kss')->where('student_id', $id)->first(), 2, 12));
+        $scores["ac"] = array_filter(array_slice((array) DB::table('acs')->where('student_id', $id)->first(), 2, 9));
+        return view('detail')->with('student', $student)->with('scores', $scores);
     }
 
     public function create() {
@@ -72,27 +102,27 @@ class StudentController extends Controller {
 
     private function store($nick, $name, $kattis, $country, $image) {
 
-        $student = array();
-        $student["nick"] = $nick;
-        $student["name"] = $name;
-        $student["kattis"] = $kattis;
-        $student["country_iso2"] = $country;
         $iso3_codes = json_decode(file_get_contents('../iso3.json'), true);
-        $student["country_iso3"] = $iso3_codes[$country];
-        $student["image"] = $image;
 
-        $student["scores"] = array();
-        $student["scores"]["mc"] = array();
-        $student["scores"]["tc"] = array();
-        $student["scores"]["hw"] = array();
-        $student["scores"]["pb"] = array();
-        $student["scores"]["ks"] = array();
-        $student["scores"]["ac"] = array();
+        DB::table('students')->insert([
+            'nick' => $nick,
+            'name' => $name,
+            'kattis' => $kattis,
+            'image' => $image,
+            'country_iso2' => $country,
+            'country_iso3' => $iso3_codes[$country],
+        ]);
 
-        $this->studentDB[] = $student;
-        $this->updateDB();
+        $id = DB::table('students')->max('id');
 
-        return view('/student/' . (count($this->studentDB)));
+        DB::table("mcs")->insert(["student_id" => $id]);
+        DB::table("tcs")->insert(["student_id" => $id]);
+        DB::table("hws")->insert(["student_id" => $id]);
+        DB::table("pbs")->insert(["student_id" => $id]);
+        DB::table("kss")->insert(["student_id" => $id]);
+        DB::table("acs")->insert(["student_id" => $id]);
+
+        return Redirect::to('student/' . count($this->studentDB));
     }
 
     private function updateDB() {
@@ -103,10 +133,28 @@ class StudentController extends Controller {
         fclose($fh);
     }
 
+    private function checkNull($var) {
+        return isset($var);
+    }
+
     /*public function removetests() {
         unset($this->studentDB[count($this->studentDB) - 1]);
         array_values($this->studentDB);
         $this->updateDB();
+    }*/
+
+/*    public function filltable() {
+
+        for ($i = 0; $i < 50; $i++) {
+            $scores = $this->studentDB[$i]["scores"];
+            DB::table('acs')->insert([
+                'student_id' => $i + 1,
+                '01' => $scores["ac"][0],
+                '02' => $scores["ac"][1],
+                '03' => $scores["ac"][2],
+            ]);
+        }
+
     }*/
 }
 ?>

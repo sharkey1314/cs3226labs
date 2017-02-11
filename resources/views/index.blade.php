@@ -37,13 +37,13 @@
 
                     for ($i = 0; $i < count($studentDB); $i++) {
                         $scores = $studentDB[$i]["scores"];
-                        $mc = array_sum($scores["mc"]);
-                        $tc = array_sum($scores["tc"]);
+                        $mc = $scores["mc"];
+                        $tc = $scores["tc"];
                         $spe = $mc + $tc;
-                        $hw = array_sum($scores["hw"]);
-                        $pb = array_sum($scores["pb"]);
-                        $ks = array_sum($scores["ks"]);
-                        $ac = array_sum($scores["ac"]);
+                        $hw = $scores["hw"];
+                        $pb = $scores["pb"];
+                        $ks = $scores["ks"];
+                        $ac = $scores["ac"];
                         $dil = $hw + $pb + $ks + $ac;
                         $sum = $spe + $dil;
 
@@ -66,13 +66,13 @@
                         $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
 
                         $scores = $student["scores"];
-                        $mc = array_sum($scores["mc"]);
-                        $tc = array_sum($scores["tc"]);
+                        $mc = $scores["mc"];
+                        $tc = $scores["tc"];
                         $spe = $mc + $tc;
-                        $hw = array_sum($scores["hw"]);
-                        $pb = array_sum($scores["pb"]);
-                        $ks = array_sum($scores["ks"]);
-                        $ac = array_sum($scores["ac"]);
+                        $hw = $scores["hw"];
+                        $pb = $scores["pb"];
+                        $ks = $scores["ks"];
+                        $ac = $scores["ac"];
                         $dil = $hw + $pb + $ks + $ac;
                         $sum = $spe + $dil;
                     ?>

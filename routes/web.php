@@ -22,6 +22,12 @@ Route::get('create', 'StudentController@create');
 
 Route::post('create', 'StudentController@check');
 
+//Route::get('filltable', 'StudentController@filltable');
+
+//Route::get('student/{id}/edit', 'StudentController@edit');
+
+//Route::post('student/{id}/edit', 'StudentController@edit');
+
 //Route::get('removetests', 'StudentController@removetests');
 
 //Route::get('changeimage', 'StudentController@changeImage');

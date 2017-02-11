@@ -3,19 +3,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-9">
-            <h4><b><?php echo $student["name"] ?></b></h4>
+            <h4><b><?php echo $student->name ?></b></h4>
 
-            <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student["kattis"] ?></b></a>
+            <p>Kattis account: <a href="#" target="_blank"><b><?php echo $student->kattis ?></b></a>
             </p>
 
             <?php
-            $scores = $student["scores"];
-
             $spe = array_sum($scores["mc"]);
             $dil = array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]);
             $sum = $spe + $dil;
 
-            $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
+            $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
             ?>
 
             <p><b>SPE</b>(ed) component: <b><?php echo array_sum($scores["mc"]) . ' + 0 = ' . array_sum($scores["mc"]) ?></b><br>
@@ -27,7 +25,7 @@
             <img class="nation" src="<?php echo $flag_cdn ?>" width="100px">
         </div>
         <div class="hidden-xs hidden-sm col-sm-2">
-            <img class="student-avatar" src="<?php echo $student["image"] ?>" width="100px">
+            <img class="student-avatar" src="<?php echo $student->image ?>" height="100px" width="100px">
         </div>
     </div>
 
@@ -60,10 +58,11 @@
                     <td>Mini Contests</td>
                     <td><?php echo array_sum($scores["mc"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["mc"]);
                     for ($i = 0; $i < 9; $i++) {
                         if ($i < count($scores["mc"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["mc"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo sprintf('%0.1f', $scores["mc"][$keys[$i]]) ?></td>
                         <?php
                         } else {
                         ?>
@@ -79,10 +78,11 @@
                     <td>Team Contests</td>
                     <td><?php echo array_sum($scores["tc"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["tc"]);
                     for ($i = 0; $i < 2; $i++) {
                         if ($i < count($scores["tc"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["tc"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo $scores["tc"][$keys[$i]] ?></td>
                         <?php
                         } else {
                         ?>
@@ -98,10 +98,11 @@
                     <td>Homework</td>
                     <td><?php echo array_sum($scores["hw"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["hw"]);
                     for ($i = 0; $i < 10; $i++) {
                         if ($i < count($scores["hw"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["hw"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo sprintf('%0.1f', $scores["hw"][$keys[$i]]) ?></td>
                         <?php
                         } else {
                         ?>
@@ -117,10 +118,11 @@
                     <td>Problem Bs</td>
                     <td><?php echo array_sum($scores["pb"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["pb"]);
                     for ($i = 0; $i < 9; $i++) {
                         if ($i < count($scores["pb"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["pb"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo $scores["pb"][$keys[$i]] ?></td>
                         <?php
                         } else {
                         ?>
@@ -136,10 +138,11 @@
                     <td>Kattis Sets</td>
                     <td><?php echo array_sum($scores["ks"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["ks"]);
                     for ($i = 0; $i < 12; $i++) {
                         if ($i < count($scores["ks"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["ks"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo $scores["ks"][$keys[$i]] ?></td>
                         <?php
                         } else {
                         ?>
@@ -155,10 +158,11 @@
                     <td>Achievements</td>
                     <td><?php echo array_sum($scores["ac"]) ?></td>
                     <?php
+                    $keys = array_keys($scores["ac"]);
                     for ($i = 0; $i< 9; $i++) {
                         if ($i < count($scores["ac"])) {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["ac"][$i] ?></td>
+                            <td class="hidden-xs hidden-sm"><?php echo $scores["ac"][$keys[$i]] ?></td>
                         <?php
                         } else {
                         ?>
@@ -197,7 +201,7 @@
 
 @section('script')
 <script>
-    var studentName = "<?php echo $student["name"] ?>";
+    var studentName = "<?php echo $student->name ?>";
     var data = [
             <?php echo array_sum($scores["mc"]) ?>,
             <?php echo array_sum($scores["tc"]) ?>,
