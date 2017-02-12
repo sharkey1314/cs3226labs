@@ -17,6 +17,13 @@ $(document).ready(function() {
         jQueryUI: false
     });
 
+    table.on('order.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i + 1;
+            cell.style.textAlign = "center";
+        } );
+    }).draw();
+
     $('tbody tr').each(function(index) {
         cur = $(this).find('td:nth-child(13)').text();
         next = $(this).next('tr').find('td:nth-child(13)').text();
@@ -37,7 +44,4 @@ $(document).ready(function() {
             $(this).height(37);
         });
     });
-
-    var url = window.location.pathname;
-	$('.nav > li > a[href="'+ url +'"]').parent().addClass('active');
 });
