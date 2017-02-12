@@ -54,19 +54,37 @@
                 </tr>
             </thead>
             <tbody>
+                <?php
+                $keymap = [
+                    'mc' => "Mini Contests",
+                    'tc' => 'Team Contests',
+                    'hw' => 'Homework',
+                    'pb' => 'Problem Bs',
+                    'ks' => 'Kattis Sets',
+                    'ac' => 'Achievements',
+                ];
+
+                $keys = array_keys($scores);
+                foreach ($keys as $key) {
+                ?>
                 <tr>
-                    <td>Mini Contests</td>
-                    <td><?php echo array_sum($scores["mc"]) ?></td>
+                    <td><?php echo $keymap[$key] ?></td>
+                    <td><?php echo array_sum($scores[$key]) ?></td>
                     <?php
-                    $keys = array_keys($scores["mc"]);
-                    for ($i = 0; $i < 9; $i++) {
-                        if ($i < count($scores["mc"])) {
+                    for ($i = 0; $i < count($scores[$key]); $i++) {
+                        if (is_numeric($scores[$key][$i])) {
+                            if ($key == "mc" || $key == "tc" || $key == "hw") {
                     ?>
-                            <td class="hidden-xs hidden-sm"><?php echo sprintf('%0.1f', $scores["mc"][$keys[$i]]) ?></td>
-                        <?php
+                                <td class="hidden-xs hidden-sm"><?php echo sprintf("%.1f", $scores[$key][$i]) ?></td>
+                            <?php
+                            } else {
+                            ?>
+                                <td class="hidden-xs hidden-sm"><?php echo $scores[$key][$i] ?></td>
+                            <?php
+                            }
                         } else {
                         ?>
-                            <td class="hidden-xs hidden-sm empty">x.y</td>
+                            <td class="hidden-xs hidden-sm empty"><?php echo $scores[$key][$i] ?></td>
                         <?php
                         }
                         ?>
@@ -74,106 +92,9 @@
                     }
                     ?>
                 </tr>
-                <tr>
-                    <td>Team Contests</td>
-                    <td><?php echo array_sum($scores["tc"]) ?></td>
-                    <?php
-                    $keys = array_keys($scores["tc"]);
-                    for ($i = 0; $i < 2; $i++) {
-                        if ($i < count($scores["tc"])) {
-                    ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["tc"][$keys[$i]] ?></td>
-                        <?php
-                        } else {
-                        ?>
-                            <td class="hidden-xs hidden-sm empty">xy.z</td>
-                        <?php
-                        }
-                        ?>
-                    <?php
-                    }
-                    ?>
-                </tr>
-                <tr>
-                    <td>Homework</td>
-                    <td><?php echo array_sum($scores["hw"]) ?></td>
-                    <?php
-                    $keys = array_keys($scores["hw"]);
-                    for ($i = 0; $i < 10; $i++) {
-                        if ($i < count($scores["hw"])) {
-                    ?>
-                            <td class="hidden-xs hidden-sm"><?php echo sprintf('%0.1f', $scores["hw"][$keys[$i]]) ?></td>
-                        <?php
-                        } else {
-                        ?>
-                            <td class="hidden-xs hidden-sm empty">x.y</td>
-                        <?php
-                        }
-                        ?>
-                    <?php
-                    }
-                    ?>
-                </tr>
-                <tr>
-                    <td>Problem Bs</td>
-                    <td><?php echo array_sum($scores["pb"]) ?></td>
-                    <?php
-                    $keys = array_keys($scores["pb"]);
-                    for ($i = 0; $i < 9; $i++) {
-                        if ($i < count($scores["pb"])) {
-                    ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["pb"][$keys[$i]] ?></td>
-                        <?php
-                        } else {
-                        ?>
-                            <td class="hidden-xs hidden-sm empty">x</td>
-                        <?php
-                        }
-                        ?>
-                    <?php
-                    }
-                    ?>
-                </tr>
-                <tr>
-                    <td>Kattis Sets</td>
-                    <td><?php echo array_sum($scores["ks"]) ?></td>
-                    <?php
-                    $keys = array_keys($scores["ks"]);
-                    for ($i = 0; $i < 12; $i++) {
-                        if ($i < count($scores["ks"])) {
-                    ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["ks"][$keys[$i]] ?></td>
-                        <?php
-                        } else {
-                        ?>
-                            <td class="hidden-xs hidden-sm empty">x</td>
-                        <?php
-                        }
-                        ?>
-                    <?php
-                    }
-                    ?>
-                </tr>
-                <tr>
-                    <td>Achievements</td>
-                    <td><?php echo array_sum($scores["ac"]) ?></td>
-                    <?php
-                    $keys = array_keys($scores["ac"]);
-                    for ($i = 0; $i< 9; $i++) {
-                        if ($i < count($scores["ac"])) {
-                    ?>
-                            <td class="hidden-xs hidden-sm"><?php echo $scores["ac"][$keys[$i]] ?></td>
-                        <?php
-                        } else {
-                        ?>
-                            <td class="hidden-xs hidden-sm empty">x</td>
-                        <?php
-                        }
-                        ?>
-                    <?php
-                    }
-                    ?>
-                </tr>
+                <?php
+                }
+                ?>
             </tbody>
         </table>
 
@@ -194,7 +115,7 @@
             <canvas id="myChart" style="background-color: white" width="200" height="200"></canvas>
         </div>
         <div class="col-xs-12" style="height:50px;"></div>
-        {!! Form::open(['method' => 'DELETE']) !!}
+        {!! Form::open(['method' => 'DELETE', 'onsubmit' => 'return ConfirmDelete()']) !!}
         <div class="form-group col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
             {!! Form::hidden('id', $student->id) !!}
             {!! Form::submit('Delete', ['class' => 'form-control btn-danger']) !!}
@@ -208,6 +129,15 @@
 
 @section('script')
 <script>
+    function ConfirmDelete() {
+        var alert = confirm("Wipe this student out of the face of the Earth. Really?");
+        if (alert) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     var studentName = "<?php echo $student->name ?>";
     var data = [
             <?php echo array_sum($scores["mc"]) ?>,

@@ -35,15 +35,14 @@
                     $max["dil"] = 0;
                     $max["sum"] = array();
 
-                    for ($i = 0; $i < count($studentDB); $i++) {
-                        $scores = $studentDB[$i]["scores"];
-                        $mc = $scores["mc"];
-                        $tc = $scores["tc"];
+                    foreach ($scoresDB as $scores) {
+                        $mc = array_sum($scores["mc"]);
+                        $tc = array_sum($scores["tc"]);
                         $spe = $mc + $tc;
-                        $hw = $scores["hw"];
-                        $pb = $scores["pb"];
-                        $ks = $scores["ks"];
-                        $ac = $scores["ac"];
+                        $hw = array_sum($scores["hw"]);
+                        $pb = array_sum($scores["pb"]);
+                        $ks = array_sum($scores["ks"]);
+                        $ac = array_sum($scores["ac"]);
                         $dil = $hw + $pb + $ks + $ac;
                         $sum = $spe + $dil;
 
@@ -61,18 +60,17 @@
                     $max["sum"] = array_unique($max["sum"]);
                     rsort($max["sum"]);
 
-                    for ($i = 0; $i < count($studentDB); $i++) {
-                        $student = $studentDB[$i];
-                        $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student["country_iso2"]) . ".svg";
+                    foreach ($scoresDB as $scores) {
+                        $student = $students->where('id', $scores['student_id'])->first();
+                        $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
 
-                        $scores = $student["scores"];
-                        $mc = $scores["mc"];
-                        $tc = $scores["tc"];
+                        $mc = array_sum($scores["mc"]);
+                        $tc = array_sum($scores["tc"]);
                         $spe = $mc + $tc;
-                        $hw = $scores["hw"];
-                        $pb = $scores["pb"];
-                        $ks = $scores["ks"];
-                        $ac = $scores["ac"];
+                        $hw = array_sum($scores["hw"]);
+                        $pb = array_sum($scores["pb"]);
+                        $ks = array_sum($scores["ks"]);
+                        $ac = array_sum($scores["ac"]);
                         $dil = $hw + $pb + $ks + $ac;
                         $sum = $spe + $dil;
                     ?>
@@ -104,10 +102,10 @@
                     <?php
                     }
                     ?>
-                            <td><?php echo ($i + 1); ?></td>
-                            <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student["country_iso3"]; ?></td>
-                            <td class="hidden-xs"><img class="thumb" src="<?php echo $student["image"] ?>" height="15px" width="15px"> <a href=<?php echo '"/student/' . $student["id"] . '">' . $student["name"]; ?></a></td>
-                            <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . $student["id"] . '">' . $student["nick"]; ?></a></td>
+                            <td></td>
+                            <td class="hidden-xs"><img src="<?php echo $flag_cdn ?>" width="20px"> <?php echo $student->country_iso3 ?></td>
+                            <td class="hidden-xs"><img class="thumb" src="<?php echo $student->image ?>" height="15px" width="15px"> <a href=<?php echo '"/student/' . $student->id . '">' . $student->name ?></a></td>
+                            <td class="hidden-sm hidden-md hidden-lg"><a href=<?php echo '"/student/' . $student->id . '">' . $student->nick ?></a></td>
 
                         <?php
                         if ($mc == $max["mc"]) {
