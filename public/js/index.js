@@ -37,4 +37,7 @@ $(document).ready(function() {
             $(this).height(37);
         });
     });
+
+    var url = window.location.pathname;
+	$('.nav > li > a[href="'+ url +'"]').parent().addClass('active');
 });

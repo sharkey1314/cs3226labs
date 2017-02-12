@@ -1,5 +1,6 @@
 @extends('template')
 @section('main')
+<div class="container-fluid">
 <div class="row">
     <div class="col-xs-12">
         <h3>Overview</h3>
@@ -108,5 +109,6 @@
             <!-- UVa apprentice: min(2%, 8*X/1885 * 2%): This is a comparison between what you manage to solve in UVa online judge (X) by the end of the semester (Thursday, 7 May 2015, 11.59AM/midday) compared to Steven's at the start of semester (1885 AC problems), multiplied by a scaling factor of 8 =)... or approximately 236 AC problems in one semester (it is possible for student to reach this number in 4 months of CS3233). This achievement will be auto updated by this system. -->
         </ol>
     </div>
+</div>
 </div>
 @stop
