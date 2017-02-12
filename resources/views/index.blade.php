@@ -62,7 +62,10 @@
 
                     foreach ($scoresDB as $scores) {
                         $student = $students->where('id', $scores['student_id'])->first();
-                        $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
+                        $flag_cdn = "/img/flag_default.jpg";
+                        if ($student->country_iso2 !== "OT") {
+                            $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
+                        }
 
                         $mc = array_sum($scores["mc"]);
                         $tc = array_sum($scores["tc"]);

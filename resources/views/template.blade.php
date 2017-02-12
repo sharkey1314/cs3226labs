@@ -14,6 +14,11 @@
     </head>
     <body>
         @include('header')
+        @if (Session::has('error'))
+            <div class="alert alert-danger" align="center">{{ Session::get('error') }}</div>
+        @elseif (Session::has('alert-success'))
+            <div class="alert alert-success" align="center">{{ Session::get('alert-success') }}</div>
+        @endif
         @yield('main') <!-- Blade command: include section from child file -->
         @include('footer') <!-- Blade command: include other blade file -->
     </body>

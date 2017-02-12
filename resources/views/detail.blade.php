@@ -13,7 +13,10 @@
             $dil = array_sum($scores["hw"]) + array_sum($scores["pb"]) + array_sum($scores["ks"]) + array_sum($scores["ac"]);
             $sum = $spe + $dil;
 
-            $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
+            $flag_cdn = "/img/flag_default.jpg";
+            if ($student->country_iso2 !== "OT") {
+                $flag_cdn = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/" . strtolower($student->country_iso2) . ".svg";
+            }
             ?>
 
             <p><b>SPE</b>(ed) component: <b><?php echo array_sum($scores["mc"]) . ' + 0 = ' . array_sum($scores["mc"]) ?></b><br>
@@ -69,8 +72,16 @@
                 ?>
                 <tr>
                     <td><?php echo $keymap[$key] ?></td>
-                    <td><?php echo array_sum($scores[$key]) ?></td>
                     <?php
+                    if ($key == "mc" || $key == "tc" || $key == "hw") {
+                    ?>
+                        <td><?php echo sprintf("%.1f", array_sum($scores[$key])) ?></td>
+                    <?php
+                    } else {
+                    ?>
+                        <td><?php echo array_sum($scores[$key]) ?></td>
+                    <?php
+                    }
                     for ($i = 0; $i < count($scores[$key]); $i++) {
                         if (is_numeric($scores[$key][$i])) {
                             if ($key == "mc" || $key == "tc" || $key == "hw") {
@@ -116,10 +127,11 @@
         </div>
         <div class="col-xs-12" style="height:50px;"></div>
         {!! Form::open(['method' => 'DELETE', 'onsubmit' => 'return ConfirmDelete()']) !!}
-        <div class="form-group col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        <div class="form-group col-md-6 col-lg-4 col-lg-offset-2">
             {!! Form::hidden('id', $student->id) !!}
             {!! Form::submit('Delete', ['class' => 'form-control btn-danger']) !!}
         </div>
+        <a class="col-md-6 col-lg-4 btn btn-success" href=<?php echo '"/student/' . $student->id . '/edit"' ?>>Update</a>
     </div>
 
     </div>
